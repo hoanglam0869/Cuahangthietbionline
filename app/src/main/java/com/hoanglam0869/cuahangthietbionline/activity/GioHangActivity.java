@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.hoanglam0869.cuahangthietbionline.R;
 import com.hoanglam0869.cuahangthietbionline.adapter.GioHangAdapter;
+import com.hoanglam0869.cuahangthietbionline.ultil.CheckConnection;
 
 import java.text.DecimalFormat;
 
@@ -36,6 +38,29 @@ public class GioHangActivity extends AppCompatActivity {
         CheckData();
         EvenUltil();
         CatchOnItemListView();
+        EventButton();
+    }
+
+    private void EventButton() {
+        btnTiepTucMua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnThanhToan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MainActivity.mangGiohang.size() > 0) {
+                    Intent intent = new Intent(getApplicationContext(), ThongTinKhachHangActivity.class);
+                    startActivity(intent);
+                } else {
+                    CheckConnection.ShowToast_Short(getApplicationContext(), "Giỏ hàng của bạn chưa có sản phẩm để thanh toán");
+                }
+            }
+        });
     }
 
     private void CatchOnItemListView() {
